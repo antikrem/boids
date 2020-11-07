@@ -19,8 +19,27 @@ public:
 		return size;
 	}
 
+#ifdef USE_OPENMP
+
+#include <omp.h>
+
 	// Fixed state update
-	void cycle() {
+	void cycle(int threadCount = 1) {
+		#pragma omp parallel num_threads(threadCount) 
+		{
+			#pragma omp for
+			for (int i = 0; i < (int)boids.size(); i++) {
+				boids[i].doBoid(boids);
+				#pragma omp barrier
+				boids[i].update(size);
+			}
+		}
+	}
+
+#else
+
+	// Fixed state update
+	void cycle(int threadCount = 1) {
 		for (auto& i : boids) {
 			i.doBoid(boids);
 		}
@@ -28,6 +47,8 @@ public:
 			i.update(size);
 		}
 	}
+
+#endif
 
 	/**
 	* Spawns a random new boid

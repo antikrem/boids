@@ -1,4 +1,7 @@
 #include "point2.h"
+
+#define USE_OPENMP
+
 #include "space.h"
 
 //#define USE_GRAPHICS
