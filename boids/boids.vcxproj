@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="boid.cpp" />
     <ClCompile Include="boid_settings.cpp" />
     <ClCompile Include="boid_settings.h" />
     <ClCompile Include="helper.cpp" />

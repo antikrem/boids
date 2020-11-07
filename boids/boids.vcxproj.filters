@@ -33,6 +33,9 @@
     <ClCompile Include="point2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="boid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boid.h">

@@ -185,8 +185,13 @@ public:
 		position.y = fmod(position.y + size.y, size.y);
 
 		force = { 0,0 };
-
 	}
+
+	// Outputs a boid in its current state for saving
+	friend std::ostream& operator<<(std::ostream& os, const Boid& boid);
 };
+
+std::ostream& operator<<(std::ostream& os, const Boid& boid);
+
 
 #endif
