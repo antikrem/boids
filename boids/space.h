@@ -29,8 +29,9 @@ public:
 
 	// Fixed state update
 	void cycle(int threadCount = 1) {
-		#pragma omp parallel num_threads(threadCount) 
+		#pragma omp parallel num_threads(5) 
 		{
+			std::cout << "hello " << omp_get_thread_num() << std::endl;
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].doBoid(boids);
