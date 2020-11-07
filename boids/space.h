@@ -30,7 +30,9 @@ public:
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].doBoid(boids);
-				#pragma omp barrier
+			}
+			#pragma omp for
+			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].update(size);
 			}
 		}
