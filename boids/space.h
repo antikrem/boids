@@ -1,6 +1,12 @@
 #ifndef __SPACE__
 #define __SPACE__
 
+#ifdef USE_OPENMP
+
+#include <omp.h>
+
+#endif
+
 #include "point2.h"
 #include "boid.h"
 
@@ -20,8 +26,6 @@ public:
 	}
 
 #ifdef USE_OPENMP
-
-#include <omp.h>
 
 	// Fixed state update
 	void cycle(int threadCount = 1) {
