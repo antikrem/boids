@@ -17,6 +17,9 @@ public:
 	std::vector<int> counts = { 100 };
 	Point2 size = Point2(500, 500);
 
+	bool output = false;
+	std::string outputFile = "results.txt";
+
 	Parameters(int argc, char* argv[]) {
 		for (int i = 1; i < argc; i++) {
 			std::string parameter = std::string(argv[i]);
@@ -26,7 +29,12 @@ public:
 
 				i++;
 				parameter = std::string(argv[i]);
-				while (parameter.size() > 0 && parameter[0] != '-' ) {
+				while (parameter.size() > 0) {
+					if (parameter[0] == '-') {
+						i--;
+						break;
+					}
+
 					int value = lazyStoi(parameter);
 					if (value > 0) {
 						counts.push_back(value);
@@ -38,6 +46,11 @@ public:
 					}				
 					parameter = std::string(argv[i]);
 				}
+			}
+			else if (parameter == "-save") {
+				output = true;
+				outputFile = std::string(argv[i + 1]);
+				i++;
 			}
 			else if (parameter == "-threads") {
 				numberOfThreads = lazyStoi(argv[i + 1]);
@@ -54,7 +67,6 @@ public:
 			}
 		}
 
-		std::cout << "-threads " << numberOfThreads << std::endl << "-size " << size << std::endl;
 	}
 };
 
