@@ -3,6 +3,8 @@
 
 #include <math.h>
 
+#include <string>
+
 #define PI 3.14159265358
 
 class Point2 {
@@ -83,8 +85,10 @@ public:
 		}
 	}
 
-
+	friend std::ostream& operator<<(std::ostream& os, const Point2& point);
 };
+
+std::ostream& operator<<(std::ostream& os, const Point2& point);
 
 
 #endif

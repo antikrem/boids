@@ -146,11 +146,13 @@
     <ClCompile Include="boid_settings.h" />
     <ClCompile Include="helper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="point2.cpp" />
     <ClCompile Include="renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boid.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="parameters.h" />
     <ClInclude Include="point2.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="space.h" />

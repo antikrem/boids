@@ -30,6 +30,9 @@
     <ClCompile Include="helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="point2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boid.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tester.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
