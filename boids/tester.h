@@ -44,7 +44,7 @@ public:
 		
 		auto results = runTrials(tests, {500, 500});
 
-		for (int i = 0; i < results.size(); i++) {
+		for (int i = 0; i < (int)results.size(); i++) {
 			std::cout << tests[i] << " " << results[i] << std::endl;
 		}
 	}
@@ -66,7 +66,7 @@ public:
 
 		auto results = runTrials(tests, { 500, 500 });
 
-		for (int i = 0; i < results.size(); i++) {
+		for (int i = 0; i < (int)results.size(); i++) {
 			std::cout << tests[i] << " " << results[i] << std::endl;
 		}
 
