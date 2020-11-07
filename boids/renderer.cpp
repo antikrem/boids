@@ -4,11 +4,17 @@
 
 S2D_Window* window;
 
+// Parameter copy
+Parameters parameters;
 // Space copy
 Space space({ 0,0 });
 
-void copySpace(const Space& external) {
+// cycle currently up to
+int cycleCount = 0;
+
+void copyEnvironment(const Space& external, const Parameters& externalParameters) {
 	space = external;
+	parameters = externalParameters;
 }
 
 void render() {
@@ -34,7 +40,8 @@ void render() {
 
 void update() {
 	for (auto& i : space.getBoids()) {
-		space.cycle();
+		space.cycle(parameters, cycleCount);
+		cycleCount++;
 	}
 
 }

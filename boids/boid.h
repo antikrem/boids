@@ -78,7 +78,7 @@ private:
 	/**
 	 * Applys seperation, moving away from nearby boids
 	 */
-	void seperation(const std::vector<Boid>& boids) {
+	void seperation(const std::vector<Boid>& boids, double scatterFactor) {
 		Point2 steer = Point2(0, 0);
 
 		int count = 0;
@@ -86,7 +86,7 @@ private:
 			double distance = i.position.distanceTo(position);
 
 			// Ignore self and boids too far
-			if (distance > EPSILON && distance < BoidSettings::SEPERATION_DISTANCE) {
+			if (distance > EPSILON && distance < BoidSettings::SEPERATION_DISTANCE * scatterFactor) {
 				count++;
 
 				Point2 difference = position - i.position;
@@ -101,7 +101,7 @@ private:
 		if (count > 0) {
 			// Average steer
 			steer = steer * (1 / (double)count);
-			steerToAllignWith(steer, 1);
+			steerToAllignWith(steer, scatterFactor);
 		}
 		
 	}
@@ -166,8 +166,8 @@ public:
 
 	// Applies the body of the boid application
 	// Based on the vector of boids
-	void doBoid(const std::vector<Boid>& boids) {
-		seperation(boids);
+	void doBoid(const std::vector<Boid>& boids, double scatterFactor) {
+		seperation(boids, scatterFactor);
 		cohesion(boids);
 		allignment(boids);
 	}

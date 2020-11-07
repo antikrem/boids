@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 #ifdef USE_GRAPHICS
 	Space gspace(parameters.size);
 	gspace.newBoids(parameters.counts[0]);
-	copySpace(gspace);
+	copyEnvironment(gspace, parameters);
 	setUpRenderer(gspace);
 
 	// Otherwise run test

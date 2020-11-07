@@ -9,6 +9,7 @@
 
 #include "point2.h"
 #include "boid.h"
+#include "parameters.h"
 
 #include <vector>
 
@@ -29,9 +30,8 @@ public:
 
 	// Fixed state update
 	void cycle(int threadCount = 1) {
-		#pragma omp parallel num_threads(5) 
+		#pragma omp parallel num_threads(threadCount) 
 		{
-			std::cout << "hello " << omp_get_thread_num() << std::endl;
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].doBoid(boids);
@@ -43,15 +43,42 @@ public:
 		}
 	}
 
+	// Multiple cycle update
+	void multiCycle(int n, int threadCount = 1) {
+		#pragma omp parallel num_threads(threadCount) 
+		{
+			for (int i = 0; i < n; i++) {
+				#pragma omp for
+				for (int i = 0; i < (int)boids.size(); i++) {
+					boids[i].doBoid(boids);
+				}
+				#pragma omp for
+				for (int i = 0; i < (int)boids.size(); i++) {
+					boids[i].update(size);
+				}
+			}
+		}
+	}
+
 #else
 
 	// Fixed state update
-	void cycle(int threadCount = 1) {
+	void cycle(const Parameters& parameter, int cycle) {
+		double scatterFactor = 1 + (cycle % 360 > 300) * 20;
+
+
 		for (auto& i : boids) {
-			i.doBoid(boids);
+			i.doBoid(boids, scatterFactor);
 		}
 		for (auto& i : boids) {
 			i.update(size);
+		}
+	}
+
+	// Multiple cycle update
+	void multiCycle(const Parameters& parameter) {
+		for (int i = 0; i < parameter.frames; i++) {
+			cycle(parameter, i);
 		}
 	}
 

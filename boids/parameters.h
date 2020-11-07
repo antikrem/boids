@@ -20,6 +20,10 @@ public:
 	bool output = false;
 	std::string outputFile = "results.txt";
 
+	Parameters() {
+
+	}
+
 	Parameters(int argc, char* argv[]) {
 		for (int i = 1; i < argc; i++) {
 			std::string parameter = std::string(argv[i]);

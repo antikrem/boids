@@ -5,6 +5,8 @@
 #include <chrono> 
 #include <string>
 
+#include <fstream>
+
 #include "parameters.h"
 
 #define TRIALS 20
@@ -22,12 +24,15 @@ private:
 		std::vector<long long int> results;
 
 		for (int count : parameters.counts) {
+
+			// Reset state
 			space.clearBoids();
 			space.newBoids(count);
+
 			std::cout << "Running: " << count << std::endl;
 			auto start = std::chrono::high_resolution_clock::now();
 			for (int i = 0; i < parameters.frames; i++) {
-				space.cycle(parameters.numberOfThreads);
+				space.cycle(parameters, i);
 			}
 			auto duration = 
 					std::chrono::duration_cast<std::chrono::microseconds>(
@@ -44,6 +49,10 @@ public:
 	void runTests(const Parameters& parameters) {
 
 		auto results = runTrials(parameters);
+
+		if (parameters.output) {
+			std::ofstream output(parameters.outputFile, std::ofstream::out);
+		}
 
 		for (int i = 0; i < (int)results.size(); i++) {
 			std::cout << parameters.counts[i] << " " << results[i] << std::endl;

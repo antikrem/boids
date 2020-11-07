@@ -6,6 +6,6 @@
 
 void setUpRenderer(const Space& space);
 
-void copySpace(const Space& external);
+void copyEnvironment(const Space& external, const Parameters& externalParameters);
 
 #endif
