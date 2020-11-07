@@ -3,6 +3,7 @@
 
 struct BoidSettings {
 	static const double VELOCITY_CAP;
+	static const double VELOCITY_MIN;
 	static const double STEER_CAP;
 
 	static const double SEPERATION_DISTANCE;

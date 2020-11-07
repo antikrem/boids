@@ -1,6 +1,7 @@
 #include "boid_settings.h"
 
 const double BoidSettings::VELOCITY_CAP = 0.5;
+const double BoidSettings::VELOCITY_MIN = 0.3;
 const double BoidSettings::STEER_CAP = 0.2;
 
 const double BoidSettings::SEPERATION_DISTANCE = 20.0;

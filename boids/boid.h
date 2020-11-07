@@ -45,8 +45,6 @@ private:
 
 		double mag = directionTo.distanceTo({ 0,0 });
 
-		// direction.normalise(BoidSettings::VELOCITY_CAP);
-		direction.clamp(BoidSettings::VELOCITY_CAP);
 		direction -= velocity;
 
 		direction = direction * mag * strength;
@@ -64,9 +62,6 @@ private:
 		if (mag < EPSILON) {
 			return;
 		}
-
-		toTarget.normalise(BoidSettings::VELOCITY_CAP);
-
 
 		toTarget = toTarget - velocity;
 		toTarget.clamp(BoidSettings::STEER_CAP);
@@ -176,7 +171,7 @@ public:
 	void update(const Point2& size) {
 		force = force * 0.5;
 		velocity += force;
-		velocity.clamp(BoidSettings::VELOCITY_CAP);
+		velocity.clamp(BoidSettings::VELOCITY_CAP, BoidSettings::VELOCITY_MIN);
 
 		position += velocity;
 
