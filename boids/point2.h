@@ -85,6 +85,17 @@ public:
 		}
 	}
 
+	// Clamps this to given strength with min
+	void clamp(double max, double min) {
+		double mag = distanceTo({ 0,0 });
+		if (mag > max) {
+			normalise(max);
+		}
+		if (mag < min) {
+			normalise(min);
+		}
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, const Point2& point);
 };
 
