@@ -18,12 +18,13 @@ private:
 
 	// Runs a test with a give size and vector of sizes 
 	// Returns vector of results in microseconds
-	std::vector<long long int> runTrials(const Parameters& parameters) {
+	std::vector<long long int> runTrials(Parameters& parameters) {
 		space = Space(parameters.size);
 
 		std::vector<long long int> results;
 
 		for (int count : parameters.counts) {
+			parameters.count = count;
 
 			// Reset state
 			space.clearBoids();
@@ -46,7 +47,7 @@ private:
 
 public:
 	// Run tests with a given list of parameters
-	void runTests(const Parameters& parameters) {
+	void runTests(Parameters& parameters) {
 
 		auto results = runTrials(parameters);
 

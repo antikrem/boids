@@ -15,10 +15,15 @@ public:
 	int frames = 20;
 
 	std::vector<int> counts = { 100 };
+	int count = 0;
 	Point2 size = Point2(500, 500);
 
 	bool output = false;
 	std::string outputFile = "results.txt";
+
+	int firstScatterCycle = 1300;
+	int scatterDuration = 180;
+	int totalScatterDuration = firstScatterCycle + scatterDuration;
 
 	Parameters() {
 
@@ -69,8 +74,21 @@ public:
 				size.y = lazyStoi(argv[i + 2]);
 				i+=2;
 			}
+			else if (parameter == "-scatterstart") {
+				firstScatterCycle = lazyStoi(argv[i + 1]);
+				i++;
+
+				totalScatterDuration = firstScatterCycle + scatterDuration;
+			}
+			else if (parameter == "-scatterduration") {
+				scatterDuration = lazyStoi(argv[i + 1]);
+				i++;
+
+				totalScatterDuration = firstScatterCycle + scatterDuration;
+			}
 		}
 
+		count = counts[0];
 	}
 };
 

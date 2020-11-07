@@ -7,6 +7,8 @@
 #include "point2.h"
 #include "helper.h"
 #include "boid_settings.h"
+#include "parameters.h"
+
 #include <vector>
 
 #define EPSILON 0.0000001
@@ -73,7 +75,7 @@ private:
 	/**
 	 * Applys seperation, moving away from nearby boids
 	 */
-	void seperation(const std::vector<Boid>& boids, double scatterFactor) {
+	void seperation(const std::vector<Boid>& boids) {
 		Point2 steer = Point2(0, 0);
 
 		int count = 0;
@@ -81,7 +83,7 @@ private:
 			double distance = i.position.distanceTo(position);
 
 			// Ignore self and boids too far
-			if (distance > EPSILON && distance < BoidSettings::SEPERATION_DISTANCE * scatterFactor) {
+			if (distance > EPSILON && distance < BoidSettings::SEPERATION_DISTANCE) {
 				count++;
 
 				Point2 difference = position - i.position;
@@ -96,7 +98,7 @@ private:
 		if (count > 0) {
 			// Average steer
 			steer = steer * (1 / (double)count);
-			steerToAllignWith(steer, scatterFactor);
+			steerToAllignWith(steer);
 		}
 		
 	}
@@ -161,23 +163,31 @@ public:
 
 	// Applies the body of the boid application
 	// Based on the vector of boids
-	void doBoid(const std::vector<Boid>& boids, double scatterFactor) {
-		seperation(boids, scatterFactor);
+	void doBoid(const std::vector<Boid>& boids) {
+		seperation(boids);
 		cohesion(boids);
 		allignment(boids);
 	}
 
 	// Updates boid position based on previous force
-	void update(const Point2& size) {
-		force = force * 0.5;
-		velocity += force;
+	void update(const Parameters& parameter, int boid, bool firstScatter, bool scatter) {
+
+		// If scattering, ignore forces
+		if (!scatter) {
+			velocity += (force * 0.5);
+		}
+		
 		velocity.clamp(BoidSettings::VELOCITY_CAP, BoidSettings::VELOCITY_MIN);
+
+		if (firstScatter) {
+			velocity = velocity.rotate(360.0 * ((double)boid / (double)parameter.count));
+		}
 
 		position += velocity;
 
 		// Wrap position
-		position.x = fmod(position.x + size.x, size.x);
-		position.y = fmod(position.y + size.y, size.y);
+		position.x = fmod(position.x + parameter.size.x, parameter.size.x);
+		position.y = fmod(position.y + parameter.size.y, parameter.size.y);
 
 		force = { 0,0 };
 	}

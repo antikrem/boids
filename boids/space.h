@@ -64,14 +64,15 @@ public:
 
 	// Fixed state update
 	void cycle(const Parameters& parameter, int cycle) {
-		double scatterFactor = 1 + (cycle % 360 > 300) * 20;
+		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
+		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
 
 
 		for (auto& i : boids) {
-			i.doBoid(boids, scatterFactor);
+			i.doBoid(boids);
 		}
-		for (auto& i : boids) {
-			i.update(size);
+		for (int i = 0; i < (int)boids.size(); i++) {
+			boids[i].update(parameter, i, firstScatter, scatter);
 		}
 	}
 
