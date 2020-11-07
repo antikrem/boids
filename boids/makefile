@@ -1,4 +1,4 @@
-TAGS = -Wall -O2 -fopen
+TAGS = -Wall -O2 -fopenmp
 
 all:
 	g++ -c $(TAGS) boid_settings.cpp
