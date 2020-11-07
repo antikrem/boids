@@ -1,10 +1,8 @@
-#include "point2.h"
-
-#define USE_OPENMP
+// #define USE_OPENMP
 
 #include "space.h"
 
-//#define USE_GRAPHICS
+#define USE_GRAPHICS
 
 #ifdef USE_GRAPHICS
 	#include "renderer.h"
@@ -12,17 +10,19 @@
 
 #include "tester.h"
 
-
 #include <iostream>
 #include <time.h> 
 
 int main(int argc, char* argv[]) {
 	srand((int)time(NULL));
 
+	// Generate parameter object
+	Parameters parameters(argc, argv);
+
 	// Sets up rendering with Simple2D
 #ifdef USE_GRAPHICS
-	Space gspace({ 500.0, 500.0 });
-	gspace.newBoids(50);
+	Space gspace(parameters.size);
+	gspace.newBoids(parameters.counts[0]);
 	copySpace(gspace);
 	setUpRenderer(gspace);
 

@@ -5,6 +5,8 @@
 #include <chrono> 
 #include <string>
 
+#include "parameters.h"
+
 #define TRIALS 20
 
 class Tester {
@@ -14,60 +16,37 @@ private:
 
 	// Runs a test with a give size and vector of sizes 
 	// Returns vector of results in microseconds
-	std::vector<long long int> runTrials(std::vector<int> counts, const Point2& size) {
-		space = Space(size);
+	std::vector<long long int> runTrials(const Parameters& parameters) {
+		space = Space(parameters.size);
 
 		std::vector<long long int> results;
 
-		for (int count : counts) {
+		for (int count : parameters.counts) {
 			space.clearBoids();
 			space.newBoids(count);
 			std::cout << "Running: " << count << std::endl;
 			auto start = std::chrono::high_resolution_clock::now();
-			for (int i = 0; i < TRIALS; i++) {
-				space.cycle();
+			for (int i = 0; i < parameters.frames; i++) {
+				space.cycle(parameters.numberOfThreads);
 			}
 			auto duration = 
 					std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() - start
 						);
-			results.push_back(duration.count() / TRIALS);
+			results.push_back(duration.count() / parameters.frames);
 		}
 
 		return results;
 	}
 
 public:
-	// Run tests with a standard list of counts
-	void runStandardTests() {
-		std::vector<int> tests = { 10, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 6000 };
-		
-		auto results = runTrials(tests, {500, 500});
-
-		for (int i = 0; i < (int)results.size(); i++) {
-			std::cout << tests[i] << " " << results[i] << std::endl;
-		}
-	}
-
 	// Run tests with a given list of parameters
-	void runTests(int argc, char* argv[]) {
-		std::vector<int> tests;
+	void runTests(const Parameters& parameters) {
 
-		for (int i = 1; i < argc; i++) {
-			try {
-				tests.push_back(
-						stoi(std::string(argv[i]))
-					);
-			}
-			catch (const std::invalid_argument&) {
-
-			}
-		}
-
-		auto results = runTrials(tests, { 500, 500 });
+		auto results = runTrials(parameters);
 
 		for (int i = 0; i < (int)results.size(); i++) {
-			std::cout << tests[i] << " " << results[i] << std::endl;
+			std::cout << parameters.counts[i] << " " << results[i] << std::endl;
 		}
 
 	}
