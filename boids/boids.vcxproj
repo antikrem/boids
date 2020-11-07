@@ -156,6 +156,10 @@
     <ClInclude Include="space.h" />
     <ClInclude Include="tester.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
