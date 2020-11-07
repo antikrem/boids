@@ -59,7 +59,7 @@ public:
 						stoi(std::string(argv[i]))
 					);
 			}
-			catch (std::invalid_argument) {
+			catch (std::invalid_argument pass) {
 
 			}
 		}
