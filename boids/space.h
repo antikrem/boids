@@ -51,14 +51,13 @@ public:
 	void multiCycle(const Parameters& parameter) {
 		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
+			// Set parameters to work out where to do work
 			int threadNumber = omp_get_thread_num();
 			int threadCount = omp_get_num_threads();
 			int width = (int)std::ceil((double)parameter.count / threadCount);
 			int start = threadNumber * width;
 			int end = std::min(width * (threadNumber + 1), parameter.count);
 
-			std::cout << threadNumber << "  " << threadCount << "  start " << start << " end " << end << std::endl;
-			
 			for (int cycle = 0; cycle < parameter.frames; cycle++) {
 
 				bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
