@@ -32,9 +32,7 @@ private:
 
 			std::cout << "Running: " << count << std::endl;
 			auto start = std::chrono::high_resolution_clock::now();
-			for (int i = 0; i < parameters.frames; i++) {
-				space.cycle(parameters, i);
-			}
+			space.multiCycle(parameters);
 			auto duration = 
 					std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() - start
