@@ -29,6 +29,12 @@ public:
 		this->y = y;
 	}
 
+	static Point2 fromPolar(double mag, double angle) {
+		return Point2(
+			mag * std::cos(angle * 180 / PI),
+			mag * std::sin(angle * 180 / PI)
+		);
+	}
 
 	//sets polar part
 	void set(double x, double y) {
