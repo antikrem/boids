@@ -9,4 +9,4 @@ all:
 	g++ $(TAGS) -o boid boid.o point2.o boid_settings.o helper.o main.o
 
 clean:
-	rm -f boid_settings.o helper.o main.o
+	rm -f boid boid.exe boid_settings.o point2.o boid.o helper.o main.o
