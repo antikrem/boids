@@ -125,9 +125,6 @@ public:
 	// Multiple cycle update
 	void multiCycle(Parameters& parameter) {
 		for (int i = 0; i < parameter.frames; i++) {
-			if (parameter.output) {
-				writeToFile(parameter);
-			}
 			cycle(parameter, i);
 		}
 	}
