@@ -28,6 +28,8 @@ public:
 	int scatterDuration = 180;
 	int totalScatterDuration = firstScatterCycle + scatterDuration;
 
+	int seed = -1;
+
 	Parameters() {
 
 	}
@@ -88,6 +90,10 @@ public:
 				i++;
 
 				totalScatterDuration = firstScatterCycle + scatterDuration;
+			}
+			else if (parameter == "-seed") {
+				seed = lazyStoi(argv[i + 1]);
+				i++;
 			}
 		}
 

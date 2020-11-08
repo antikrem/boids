@@ -16,10 +16,13 @@
 #include <time.h> 
 
 int main(int argc, char* argv[]) {
-	srand((int)time(NULL));
-
 	// Generate parameter object
 	Parameters parameters(argc, argv);
+	srand(
+		(parameters.seed > 0) ? parameters.seed : (int)time(NULL)
+	);
+
+	
 
 	// Sets up rendering with Simple2D
 #ifdef USE_GRAPHICS
