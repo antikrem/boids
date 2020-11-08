@@ -12,6 +12,7 @@
 #include "parameters.h"
 
 #include <vector>
+#include <algorithm> 
 
 class Space {
 	Point2 size;
@@ -29,37 +30,50 @@ public:
 #ifdef USE_OPENMP
 
 	// Fixed state update
-	void cycle(int threadCount = 1) {
+	void cycle(const Parameters& parameter, int cycle) {
 		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
 
 		#pragma omp parallel num_threads(threadCount) 
 		{
+			std::cout << omp_get_thread_num() << std::endl;
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].doBoid(boids);
 			}
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
-				boids[i].update(size, i, firstScatter, scatter);
+				boids[i].update(parameter, i, firstScatter, scatter);
 			}
 		}
 	}
 
 	// Multiple cycle update
-	void multiCycle(int n, int threadCount = 1) {
-		#pragma omp parallel num_threads(threadCount) 
+	void multiCycle(const Parameters& parameter) {
+		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
-			for (int i = 0; i < n; i++) {
-				#pragma omp for
-				for (int i = 0; i < (int)boids.size(); i++) {
+			int threadNumber = omp_get_thread_num();
+			int threadCount = omp_get_num_threads();
+			int width = parameter.count / threadCount;
+			int start = threadNumber * width;
+			int end = std::min(threadNumber * (width + 1), parameter.count);
+			
+			for (int cycle = 0; cycle < parameter.frames; cycle++) {
+
+				bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
+				bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
+
+				for (int i = start; i < end; i++) {
 					boids[i].doBoid(boids);
 				}
-				#pragma omp for
-				for (int i = 0; i < (int)boids.size(); i++) {
-					boids[i].update(size);
+
+
+				for (int i = start; i < end; i++) {
+					boids[i].update(parameter, i, firstScatter, scatter);
 				}
+
 			}
+
 		}
 	}
 

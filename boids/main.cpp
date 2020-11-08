@@ -1,4 +1,4 @@
-// #define USE_OPENMP
+#define USE_OPENMP
 
 #include "space.h"
 
