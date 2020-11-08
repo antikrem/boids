@@ -26,7 +26,9 @@ private:
 		for (int count : parameters.counts) {
 			parameters.count = count;
 
-			(*parameters.outputStream) << "#" << count << std::endl;
+			if (parameters.output) {
+				(*parameters.outputStream) << "#" << count << std::endl;
+			}
 
 			// Reset state
 			space.clearBoids();
