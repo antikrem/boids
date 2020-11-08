@@ -1,6 +1,7 @@
 #include "helper.h"
 
 #include <stdexcept>
+#include <algorithm>
 
 double randDouble() {
 	return static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
