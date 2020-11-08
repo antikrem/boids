@@ -2,7 +2,7 @@
 
 #include "space.h"
 
-//#define USE_GRAPHICS
+// #define USE_GRAPHICS
 
 #ifdef USE_GRAPHICS
 	#include "renderer.h"
