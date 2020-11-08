@@ -18,6 +18,16 @@ class Space {
 	Point2 size;
 	std::vector<Boid> boids;
 
+	// Writes all boids to output file
+	void writeToFile(Parameters& parameters) {
+		for (auto& boid : boids) {
+			(*parameters.outputStream) << boid;
+		}
+
+		(*parameters.outputStream) << '\n';
+	}
+
+
 public:
 	Space(Point2 size) 
 			: size(size) {
@@ -30,9 +40,13 @@ public:
 #ifdef USE_OPENMP
 
 	// Fixed state update
-	void cycle(const Parameters& parameter, int cycle) {
+	void cycle(Parameters& parameter, int cycle) {
 		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
+
+		if (parameter.output) {
+			writeToFile(parameter);
+		}
 
 		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
@@ -48,7 +62,7 @@ public:
 	}
 
 	// Multiple cycle update
-	void multiCycle(const Parameters& parameter) {
+	void multiCycle(Parameters& parameter) {
 		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
 			// Set parameters to work out where to do work
@@ -59,6 +73,15 @@ public:
 			int end = std::min(width * (threadNumber + 1), parameter.count);
 
 			for (int cycle = 0; cycle < parameter.frames; cycle++) {
+
+				if (parameter.output) {
+					#pragma omp barrier
+					if (threadNumber == 0) {
+						writeToFile(parameter);
+					}
+					#pragma omp barrier
+					
+				}
 
 				bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 				bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
@@ -83,10 +106,13 @@ public:
 #else
 
 	// Fixed state update
-	void cycle(const Parameters& parameter, int cycle) {
+	void cycle(Parameters& parameter, int cycle) {
 		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
 
+		if (parameter.output) {
+			writeToFile(parameter);
+		}
 
 		for (auto& i : boids) {
 			i.doBoid(boids);
@@ -97,8 +123,11 @@ public:
 	}
 
 	// Multiple cycle update
-	void multiCycle(const Parameters& parameter) {
+	void multiCycle(Parameters& parameter) {
 		for (int i = 0; i < parameter.frames; i++) {
+			if (parameter.output) {
+				writeToFile(parameter);
+			}
 			cycle(parameter, i);
 		}
 	}

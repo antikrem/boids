@@ -1,8 +1,10 @@
+// Uncomment the following lines for different compile options
+
 #define USE_OPENMP
 
-#include "space.h"
-
 // #define USE_GRAPHICS
+
+#include "space.h"
 
 #ifdef USE_GRAPHICS
 	#include "renderer.h"

@@ -4,6 +4,8 @@
 #include <string> 
 #include <vector>
 
+#include <fstream>
+
 #include "helper.h"
 
 #include <iostream>
@@ -20,6 +22,7 @@ public:
 
 	bool output = false;
 	std::string outputFile = "results.txt";
+	std::ofstream* outputStream = nullptr;
 
 	int firstScatterCycle = 1300;
 	int scatterDuration = 180;
