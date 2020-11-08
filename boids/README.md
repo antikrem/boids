@@ -1,11 +1,15 @@
 # Compilation
 ## Default
-Compilation with `make` for running tests in moss.
+Compilation with `make` for running tests in moss/goliath/getafix.
+
+Two flags can be modified within `main.cpp`. Commenting `#define USE_OPENMP` will compile the program in its old serial form.
 
 ## View
-Uncomment line 4 in main.cpp, and have Simple2D library on path. Compile with `make`.
+Uncommenting `#define USE_GRAPHICS` will render a simple view with Simple2D, but this needs to have Simple2D library on path
 
 # Usage
-`boid [COUNTS...]`
+`boid [-counts count0 [count1...]] [-threads n] [-frames n] 
+     [-size x y] [-scatterstart cycle] [-scatterduration cycle]
+     [-save file]`
 
-Takes list of counts to run tests with and output time per cycle. If `[COUNTS...]` is not provided, will run a default set of tests.
+Any missing parameters will have reasonable defaults.
