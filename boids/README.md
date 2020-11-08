@@ -10,6 +10,6 @@ Uncommenting `#define USE_GRAPHICS` will render a simple view with Simple2D, but
 # Usage
 `boid [-counts count0 [count1...]] [-threads n] [-frames n] 
      [-size x y] [-scatterstart cycle] [-scatterduration cycle]
-     [-save file]`
+     [-save file] [-seed value]`
 
 Any missing parameters will have reasonable defaults.
