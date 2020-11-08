@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include <string>
+#include <iostream>
 
 #define PI 3.14159265358
 
