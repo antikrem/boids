@@ -36,7 +36,6 @@ public:
 
 		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
-			std::cout << omp_get_thread_num() << std::endl;
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
 				boids[i].doBoid(boids);
