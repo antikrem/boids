@@ -34,7 +34,7 @@ public:
 		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
 
-		#pragma omp parallel num_threads(threadCount) 
+		#pragma omp parallel num_threads(parameter.numberOfThreads) 
 		{
 			std::cout << omp_get_thread_num() << std::endl;
 			#pragma omp for
