@@ -71,7 +71,6 @@ public:
 
 				#pragma omp barrier
 
-
 				for (int i = start; i < end; i++) {
 					boids[i].update(parameter, i, firstScatter, scatter);
 				}
