@@ -30,6 +30,9 @@ public:
 
 	// Fixed state update
 	void cycle(int threadCount = 1) {
+		bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
+		bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
+
 		#pragma omp parallel num_threads(threadCount) 
 		{
 			#pragma omp for
@@ -38,7 +41,7 @@ public:
 			}
 			#pragma omp for
 			for (int i = 0; i < (int)boids.size(); i++) {
-				boids[i].update(size);
+				boids[i].update(size, i, firstScatter, scatter);
 			}
 		}
 	}
