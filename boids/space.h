@@ -56,15 +56,21 @@ public:
 			int width = parameter.count / threadCount;
 			int start = threadNumber * width;
 			int end = std::min(threadNumber * (width + 1), parameter.count);
+
+			std::cout << threadNumber << "  " << threadCount << "  start " << start << " end " << end << std::endl;
 			
 			for (int cycle = 0; cycle < parameter.frames; cycle++) {
 
 				bool firstScatter = (cycle % parameter.totalScatterDuration == parameter.firstScatterCycle);
 				bool scatter = (cycle % parameter.totalScatterDuration >= parameter.firstScatterCycle);
 
+				#pragma omp barrier
+
 				for (int i = start; i < end; i++) {
 					boids[i].doBoid(boids);
 				}
+
+				#pragma omp barrier
 
 
 				for (int i = start; i < end; i++) {
