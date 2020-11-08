@@ -97,6 +97,11 @@ public:
 		}
 	}
 
+	// Returns angle value
+	double getAngle() const {
+		return atan2(y, x) * (180 / PI);
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, const Point2& point);
 };
 
