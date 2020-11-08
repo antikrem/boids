@@ -9,7 +9,7 @@ double randDouble() {
 int lazyStoi(std::string input) {
 	int value = -1;
 	try {
-		value = stoi(input);
+		value = std::stoi(input);
 	}
 	catch (const std::invalid_argument&) {
 
