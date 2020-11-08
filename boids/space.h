@@ -55,7 +55,7 @@ public:
 			int threadCount = omp_get_num_threads();
 			int width = parameter.count / threadCount;
 			int start = threadNumber * width;
-			int end = std::min(threadNumber * (width + 1), parameter.count);
+			int end = std::min(width * (threadNumber + 1), parameter.count);
 
 			std::cout << threadNumber << "  " << threadCount << "  start " << start << " end " << end << std::endl;
 			
