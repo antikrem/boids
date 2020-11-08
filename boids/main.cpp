@@ -2,7 +2,7 @@
 
 #include "space.h"
 
-#define USE_GRAPHICS
+//#define USE_GRAPHICS
 
 #ifdef USE_GRAPHICS
 	#include "renderer.h"
@@ -30,12 +30,7 @@ int main(int argc, char* argv[]) {
 #else // USE_GRAPHICS
 
 	Tester tests;
-	if (argc > 1) {
-		tests.runTests(argc, argv);
-	}
-	else {
-		tests.runStandardTests();
-	}
+	tests.runTests(parameters);
 
 #endif // USE_GRAPHICS
 }
