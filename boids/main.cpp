@@ -1,6 +1,6 @@
 // Uncomment the following lines for different compile options
 
-#define USE_OPENMP
+// #define USE_OPENMP
 
 //#define USE_GRAPHICS
 
