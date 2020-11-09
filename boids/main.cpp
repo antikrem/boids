@@ -2,7 +2,7 @@
 
 #define USE_OPENMP
 
-#define USE_GRAPHICS
+//#define USE_GRAPHICS
 
 #include "space.h"
 
