@@ -36,12 +36,6 @@ public:
 		);
 	}
 
-	//sets polar part
-	void set(double x, double y) {
-		this->x = x;
-		this->y = y;
-	}
-
 	Point2 operator+(const Point2& b) {
 		return Point2(this->x + b.x, this->y + b.y);
 	}
