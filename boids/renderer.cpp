@@ -39,10 +39,8 @@ void render() {
 }
 
 void update() {
-	for (auto& i : space.getBoids()) {
-		space.cycle(parameters, cycleCount);
-		cycleCount++;
-	}
+	space.cycle(parameters, cycleCount);
+	cycleCount++;
 
 }
 
