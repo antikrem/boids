@@ -45,8 +45,6 @@ private:
 	void steerToAllignWith(const Point2& directionTo, double strength = 1) {
 		Point2 direction = directionTo;
 
-		double mag = directionTo.distanceTo({ 0,0 });
-
 		direction -= velocity;
 
 		direction = direction * strength;
