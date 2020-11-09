@@ -49,7 +49,7 @@ private:
 
 		direction -= velocity;
 
-		direction = direction * mag * strength;
+		direction = direction * strength;
 		direction.clamp(BoidSettings::STEER_CAP);
 
 
@@ -129,7 +129,7 @@ private:
 		// Average to find center
 		center = center * (1 / count);
 
-		steerToTarget(center, BoidSettings::ALIGN_FACTOR);
+		steerToTarget(center, BoidSettings::COHESION_FACTOR);
 	}
 
 	/**
@@ -155,7 +155,9 @@ private:
 			return;
 		}
 
-		steerToAllignWith(steer, BoidSettings::COHESION_FACTOR);
+		steer = steer * (1.0 / count);
+
+		steerToAllignWith(steer, BoidSettings::ALIGN_FACTOR);
 	}
 
 
