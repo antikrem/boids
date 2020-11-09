@@ -9,6 +9,10 @@ struct BoidSettings {
 	static const double SEPERATION_DISTANCE;
 	static const double ALIGN_DISTANCE;
 	static const double COHESION_DISTANCE;
+
+	static const double SEPERATION_FACTOR;
+	static const double ALIGN_FACTOR;
+	static const double COHESION_FACTOR;
 };
 
 #endif

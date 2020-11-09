@@ -98,7 +98,7 @@ private:
 		if (count > 0) {
 			// Average steer
 			steer = steer * (1 / (double)count);
-			steerToAllignWith(steer);
+			steerToAllignWith(steer, BoidSettings::SEPERATION_FACTOR);
 		}
 		
 	}
@@ -129,7 +129,7 @@ private:
 		// Average to find center
 		center = center * (1 / count);
 
-		steerToTarget(center, 0.01);
+		steerToTarget(center, BoidSettings::ALIGN_FACTOR);
 	}
 
 	/**
@@ -155,7 +155,7 @@ private:
 			return;
 		}
 
-		steerToAllignWith(steer, 0.1);
+		steerToAllignWith(steer, BoidSettings::COHESION_FACTOR);
 	}
 
 
